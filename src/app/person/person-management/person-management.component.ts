@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {PersonServiceService, Person} from "../person-service.service";
 import {Observable} from "rxjs";
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-person-management',
@@ -9,7 +10,11 @@ import {Observable} from "rxjs";
 })
 export class PersonManagementComponent implements OnInit {
 
-  private persons:Observable<Person[]>;
+  private persons;
+
+  private nameFilter: FormControl = new FormControl();
+
+  private keyword: string;
 
   constructor(public personService: PersonServiceService) { }
 
@@ -17,6 +22,11 @@ export class PersonManagementComponent implements OnInit {
     this.personService.getPersons().subscribe(res => {
       this.persons = res;
     });
+    this.nameFilter.valueChanges
+      .debounceTime(500)
+      .subscribe(val => {
+        this.keyword = val.toLowerCase();
+      });
   }
 
 }

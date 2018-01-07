@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl} from "@angular/forms";
+import {Router, NavigationEnd} from "@angular/router";
 
 @Component({
   selector: 'app-menu',
@@ -16,11 +17,8 @@ export class MenuComponent implements OnInit {
 
   private keyword: string;
 
-  getCurrent(item){
-      this.selected = item+1;
+  constructor(public router: Router) {
   }
-
-  constructor() { }
 
   ngOnInit() {
     this.menus = [
@@ -33,8 +31,18 @@ export class MenuComponent implements OnInit {
       .subscribe(val => {
         this.keyword = val.toLowerCase();
       });
+    this.router.events.filter(event => event instanceof NavigationEnd)
+      .subscribe((event:NavigationEnd) => {
+        if(event.url == '/dashboard'){
+          this.selected = 1;
+        }
+        else if(event.url.startsWith('/stock')) {
+          this.selected = 2;
+        }else if(event.url.startsWith('/person')) {
+          this.selected = 3;
+        }
+      })
   }
-
 }
 
 export class Menu {

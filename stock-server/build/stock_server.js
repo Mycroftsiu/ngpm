@@ -5,6 +5,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 var express = require("express");
 var app = express();
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.listen(8000, function () {
     console.log('Server have been started with address: "http://localhost:8000" ');
 });
@@ -51,6 +54,7 @@ Person.create([
     { name: "Joe", gender: "Male", age: 21, phone: 51938273, department: "IT", degree: "Bachelor", jobNumber: 41235678 },
     { name: "Edmond", gender: "Male", age: 21, phone: 51938273, department: "IT", degree: "Bachelor", jobNumber: 47983678 }
 ]);
+//get person list
 app.get('/api/person', function (req, res) {
     Person.find({}, function (err, response) {
         if (err)
@@ -59,6 +63,7 @@ app.get('/api/person', function (req, res) {
             res.json(response);
     });
 });
+//get single person on person form
 app.get('/api/person/:id', function (req, res) {
     Person.findById(req.params.id, function (err, response) {
         if (err)
@@ -67,6 +72,23 @@ app.get('/api/person/:id', function (req, res) {
             res.json(response);
     });
 });
+//update single person
+app.post('/api/person/:id', function (req, res) {
+    Person.update({ _id: req.params.id }, { $set: {
+            name: req.body.name,
+            age: req.body.age[0],
+            gender: req.body.gender,
+            department: req.body.department,
+            phone: req.body.phone[0],
+            degree: req.body.degree,
+            jobNumber: req.body.jobNumber[0]
+        } }, function (err, rawResponse) {
+        if (err)
+            console.log(err);
+        res.send(rawResponse);
+    });
+});
+//delete single person
 app.delete('/api/person/:id', function (req, res) {
     Person.remove({ _id: req.params.id }, function (error, response) {
         if (error)

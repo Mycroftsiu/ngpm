@@ -11,7 +11,15 @@ export class PersonServiceService {
     return this.http.get('/api/person').map(res => res.json());
   }
 
-  deletePerson(id){
+  getPerson(id: number) {
+    return this.http.get('/api/person/'+id).map(res => res.json());
+  }
+
+  updatePerson(id,body){
+    return this.http.post('/api/person/'+id,body);
+  }
+
+  deletePerson(id: number){
     return this.http.delete('/api/person/'+id);
   }
 

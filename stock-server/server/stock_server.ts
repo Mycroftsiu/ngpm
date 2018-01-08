@@ -6,6 +6,13 @@ import * as express from 'express';
 
 const app = express();
 
+
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+
 app.listen(8000,() => {
   console.log('Server have been started with address: "http://localhost:8000" ');
 });
@@ -64,7 +71,7 @@ Person.create([
   { name: "Edmond", gender: "Male", age: 21, phone: 51938273, department: "IT", degree: "Bachelor", jobNumber: 47983678 }
 ]);
 
-
+//get person list
 app.get('/api/person', (req, res) => {
   Person.find({}, (err, response) => {
     if (err) console.log(err);
@@ -72,6 +79,7 @@ app.get('/api/person', (req, res) => {
   });
 });
 
+//get single person on person form
 app.get('/api/person/:id',(req, res) => {
   Person.findById(req.params.id, (err, response) => {
     if (err) console.log(err);
@@ -79,6 +87,23 @@ app.get('/api/person/:id',(req, res) => {
   });
 });
 
+//update single person
+app.post('/api/person/:id', (req, res) => {
+  Person.update({_id:req.params.id},{ $set: {
+      name: req.body.name,
+      age: req.body.age[0],
+      gender: req.body.gender,
+      department: req.body.department,
+      phone: req.body.phone[0],
+      degree: req.body.degree,
+      jobNumber: req.body.jobNumber[0]
+  }}, (err, rawResponse) => {
+    if(err) console.log(err);
+    res.send(rawResponse);
+  })
+});
+
+//delete single person
 app.delete('/api/person/:id',(req, res) => {
     Person.remove({_id: req.params.id}, (error, response) => {
     if(error) console.log(error);

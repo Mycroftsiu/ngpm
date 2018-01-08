@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
-import {Http} from "@angular/http";
 import {Observable} from "rxjs";
+import {Http} from "@angular/http";
 
 @Injectable()
 export class PersonServiceService {
 
-  constructor(public http: Http) { }
+  constructor(private http: Http) { }
 
   getPersons(): Observable<Person[]>{
     return this.http.get('/api/person').map(res => res.json());
+  }
+
+  deletePerson(id){
+    return this.http.delete('/api/person/'+id);
   }
 
 }

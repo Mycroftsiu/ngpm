@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {PersonServiceService, Person} from "../person-service.service";
 import {Observable} from "rxjs";
 import {FormControl} from "@angular/forms";
+import {Http} from "@angular/http";
 
 @Component({
   selector: 'app-person-management',
@@ -16,7 +17,20 @@ export class PersonManagementComponent implements OnInit {
 
   private keyword: string;
 
-  constructor(public personService: PersonServiceService) { }
+  delete(id) {
+    if(confirm("Do you really want to delete?")){
+      this.personService.deletePerson(id)
+        .subscribe(res => {
+          this.personService.getPersons().subscribe(res => {
+            this.persons = res;
+          });
+        });
+    }
+  }
+
+  constructor(
+    public personService: PersonServiceService
+  ) { }
 
   ngOnInit() {
     this.personService.getPersons().subscribe(res => {

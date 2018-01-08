@@ -46,17 +46,16 @@ const stocks: Stock[] =  [
   new Stock(6,"ChinaLife",75,3.5,"Motor Corporation",["Insurance"])
 ];
 
-//
-//
-//
-//
+
+
 var mongoose = require('mongoose');
 var Person = require('../build/user');
 
 mongoose.connect('mongodb://localhost/db1');
 mongoose.connection.on('connected',function () {
-  console.log('connect successfully')
+  console.log('database connect successfully')
 });
+
 
 Person.create([
   { name: "Mycroft", gender: "Male", age: 21, phone: 51938273, department: "IT", degree: "Bachelor", jobNumber: 12345678 },
@@ -65,22 +64,28 @@ Person.create([
   { name: "Edmond", gender: "Male", age: 21, phone: 51938273, department: "IT", degree: "Bachelor", jobNumber: 47983678 }
 ]);
 
-var result;
-setTimeout(() => {
-  Person.find({}, function (err, res) {
-    if (err) {
-      console.log('err');
-    }
-    else {
-      result = res;
-    }
+
+app.get('/api/person', (req, res) => {
+  Person.find({}, (err, response) => {
+    if (err) console.log(err);
+    else res.json(response);
   });
-},100);
-
-
-app.get('/api/person', function (req, res) {
-  res.json(result);
 });
 
+app.get('/api/person/:id',(req, res) => {
+  Person.findById(req.params.id, (err, response) => {
+    if (err) console.log(err);
+    else res.json(response);
+  });
+});
+
+app.delete('/api/person/:id',(req, res) => {
+    Person.remove({_id: req.params.id}, (error, response) => {
+    if(error) console.log(error);
+    else{
+      res.send({success:1, response: response});
+    };
+  });
+});
 
 

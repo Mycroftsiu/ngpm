@@ -33,7 +33,7 @@ export class MenuComponent implements OnInit {
       });
     this.router.events.filter(event => event instanceof NavigationEnd)
       .subscribe((event:NavigationEnd) => {
-        if(event.url == '/dashboard'){
+        if(event.url == '/dashboard' || event.url == '/'){
           this.selected = 1;
         }
         else if(event.url.startsWith('/stock')) {

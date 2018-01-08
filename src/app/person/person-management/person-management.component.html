@@ -37,8 +37,8 @@
         <td>{{person.degree}}</td>
         <td>{{person.jobNumber}}</td>
         <td>
-          <a class="btn btn-xs btn-info"><span class="glyphicon glyphicon-pencil"></span>Edit</a>
-          <a class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove"></span>Delete</a>
+          <a class="btn btn-xs btn-info" routerLink="/person/{{person._id}}"><span class="glyphicon glyphicon-pencil"></span>Edit</a>
+          <a class="btn btn-xs btn-danger" (click)="delete(person._id)"><span class="glyphicon glyphicon-remove"></span>Delete</a>
         </td>
       </tr>
       </tbody></table>

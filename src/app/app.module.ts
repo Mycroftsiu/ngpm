@@ -19,11 +19,13 @@ import { StockFilterPipe } from './stock/stock-filter.pipe';
 import {HttpModule} from "@angular/http";
 import { PersonManagementComponent } from './person/person-management/person-management.component';
 import {PersonServiceService} from "./person/person-service.service";
+import { PersonFormComponent } from './person/person-form/person-form.component';
 
 const appRoute: Routes = [
   {path:'stock',component:StockManageComponent},
   {path:'stock/:id',component:StockFormComponent},
   {path:'person',component:PersonManagementComponent},
+  {path:'person/:id',component:PersonFormComponent},
   {path:'dashboard',component:DashboardComponent},
   {path:'',redirectTo:'dashboard',pathMatch:'full'}
 ]
@@ -41,7 +43,8 @@ const appRoute: Routes = [
     DashboardComponent,
     StockFormComponent,
     StockFilterPipe,
-    PersonManagementComponent
+    PersonManagementComponent,
+    PersonFormComponent
   ],
   imports: [
     BrowserModule,

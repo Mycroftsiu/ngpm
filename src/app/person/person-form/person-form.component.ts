@@ -36,13 +36,13 @@ export class PersonFormComponent implements OnInit {
     this.personService.getPerson(personId)
       .subscribe(res => {
           this.formModel.reset({
-            name:[res.name],
-            age:[res.age],
-            gender:[res.gender],
-            department:[res.department],
-            phone:[res.phone],
-            degree:[res.degree],
-            jobnumber:[res.jobNumber]
+            name:res.name,
+            age:res.age,
+            gender:res.gender,
+            department:res.department,
+            phone:res.phone,
+            degree:res.degree,
+            jobnumber:res.jobNumber
           })
       });
   }

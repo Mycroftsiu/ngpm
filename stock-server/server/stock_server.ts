@@ -89,18 +89,18 @@ app.get('/api/person/:id',(req, res) => {
 
 //update single person
 app.post('/api/person/:id', (req, res) => {
-  Person.update({_id:req.params.id},{ $set: {
-      name: req.body.name,
-      age: req.body.age[0],
-      gender: req.body.gender,
-      department: req.body.department,
-      phone: req.body.phone[0],
-      degree: req.body.degree,
-      jobNumber: req.body.jobNumber[0]
-  }}, (err, rawResponse) => {
-    if(err) console.log(err);
-    res.send(rawResponse);
-  })
+    Person.update({_id:req.params.id},{ $set: {
+        name: req.body.name,
+        age: req.body.age,
+        gender: req.body.gender,
+        department: req.body.department,
+        phone: req.body.phone,
+        degree: req.body.degree,
+        jobNumber: req.body.jobNumber
+    }}, (err, rawResponse) => {
+      if(err) console.log(err);
+      res.send(rawResponse);
+    })
 });
 
 //delete single person

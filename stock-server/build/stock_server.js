@@ -76,12 +76,12 @@ app.get('/api/person/:id', function (req, res) {
 app.post('/api/person/:id', function (req, res) {
     Person.update({ _id: req.params.id }, { $set: {
             name: req.body.name,
-            age: req.body.age[0],
+            age: req.body.age,
             gender: req.body.gender,
             department: req.body.department,
-            phone: req.body.phone[0],
+            phone: req.body.phone,
             degree: req.body.degree,
-            jobNumber: req.body.jobNumber[0]
+            jobNumber: req.body.jobNumber
         } }, function (err, rawResponse) {
         if (err)
             console.log(err);

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup, FormBuilder} from "@angular/forms";
+import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {Person, PersonServiceService} from "../person-service.service";
 import {ActivatedRoute, Router} from "@angular/router";
 
@@ -23,13 +23,13 @@ export class PersonFormComponent implements OnInit {
   ngOnInit() {
     let fb = new FormBuilder();
     this.formModel = fb.group({
-      name:[''],
-      age:[''],
+      name:['',[Validators.required]],
+      age:['',[Validators.pattern('(^18$|^19$)|(^[2-5][0-9]$|^60$)')]],
       gender:[''],
       department:[''],
-      phone:[''],
+      phone:['',[Validators.required,Validators.pattern('1(3[0-9]|4[57]|5[0-35-9]|7[0135678]|8[0-9])\\d{8}')]],
       degree:[''],
-      jobnumber:['']
+      jobnumber:['',[Validators.pattern('[0-9]{8,8}')]]
     })
 
     let personId = this.activatedRoute.snapshot.params.id;

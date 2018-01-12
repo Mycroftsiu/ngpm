@@ -49,10 +49,10 @@ mongoose.connection.on('connected', function () {
     console.log('database connect successfully');
 });
 Person.create([
-    { name: "Mycroft", gender: "Male", age: 21, phone: 51938273, department: "IT", degree: "Bachelor", jobNumber: 12345678 },
-    { name: "Danny", gender: "Male", age: 21, phone: 51938273, department: "IT", degree: "Bachelor", jobNumber: 12312338 },
-    { name: "Joe", gender: "Male", age: 21, phone: 51938273, department: "IT", degree: "Bachelor", jobNumber: 41235678 },
-    { name: "Edmond", gender: "Male", age: 21, phone: 51938273, department: "IT", degree: "Bachelor", jobNumber: 47983678 }
+    { name: "Mycroft", gender: "Male", age: 42, phone: 13221752117, department: "Information Technology", degree: "Bachelor", jobNumber: 12345678 },
+    { name: "Danny", gender: "Male", age: 33, phone: 13726879258, department: "Accounting and Finance", degree: "Doctor", jobNumber: 12312338 },
+    { name: "Joe", gender: "Male", age: 55, phone: 13846252197, department: "Production and Quality Assurance", degree: "Doctor", jobNumber: 41235678 },
+    { name: "Edmond", gender: "Male", age: 19, phone: 15921752230, department: "Research and Development", degree: "Master", jobNumber: 47983678 }
 ]);
 //get person list
 app.get('/api/person', function (req, res) {

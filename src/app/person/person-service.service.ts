@@ -19,6 +19,10 @@ export class PersonServiceService {
     return this.http.post('/api/person/'+id,body);
   }
 
+  createPerson(body): any{
+    return this.http.post('/api/personCreate',body);
+  }
+
   deletePerson(id: number){
     return this.http.delete('/api/person/'+id);
   }

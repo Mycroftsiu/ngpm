@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
-import {Person, PersonServiceService} from "../person-service.service";
+import {PersonServiceService} from "../person-service.service";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
@@ -11,8 +11,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class PersonFormComponent implements OnInit {
 
   public formModel: FormGroup;
-
-  public person: Person;
 
   constructor(
     public personService: PersonServiceService,
@@ -33,8 +31,9 @@ export class PersonFormComponent implements OnInit {
     })
 
     let personId = this.activatedRoute.snapshot.params.id;
-    this.personService.getPerson(personId)
-      .subscribe(res => {
+    if(personId != 'create'){
+      this.personService.getPerson(personId)
+        .subscribe(res => {
           this.formModel.reset({
             name:res.name,
             age:res.age,
@@ -44,12 +43,13 @@ export class PersonFormComponent implements OnInit {
             degree:res.degree,
             jobnumber:res.jobNumber
           })
-      });
+        });
+    }
+
   }
 
 
   save(){
-    let id = this.activatedRoute.snapshot.params.id;
     let obj = {
       name:this.formModel.value.name,
       age:this.formModel.value.age,
@@ -59,9 +59,17 @@ export class PersonFormComponent implements OnInit {
       degree:this.formModel.value.degree,
       jobNumber:this.formModel.value.jobnumber,
     }
-    this.personService.updatePerson(id,obj).subscribe(res => {
-      this.router.navigateByUrl('/person');
-    });
+    let id = this.activatedRoute.snapshot.params.id;
+    if(id != 'create'){
+      this.personService.updatePerson(id,obj).subscribe(res => {
+        this.router.navigateByUrl('/person');
+      });
+    }else {
+      this.personService.createPerson(obj).subscribe(res => {
+        this.router.navigateByUrl('/person');
+      });
+    }
+
   }
 
 

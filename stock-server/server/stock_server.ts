@@ -103,6 +103,21 @@ app.post('/api/person/:id', (req, res) => {
     })
 });
 
+app.post('/api/personCreate', (req, res) => {
+  if(req.body != null){
+    Person.create({
+      name: req.body.name,
+      gender: req.body.gender,
+      age: req.body.age,
+      phone: req.body.phone,
+      department: req.body.department,
+      degree: req.body.degree,
+      jobNumber: req.body.jobNumber
+    });
+    res.send({success: 1});
+  }
+});
+
 //delete single person
 app.delete('/api/person/:id',(req, res) => {
     Person.remove({_id: req.params.id}, (error, response) => {

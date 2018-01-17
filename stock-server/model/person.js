@@ -2,7 +2,7 @@
  * Created by mycroft on 2018/1/5.
  */
 
-//user modules
+//person modules
 var mongoose = require('mongoose');
 
 var PersonSchema = new mongoose.Schema({

@@ -20,14 +20,24 @@ import {HttpModule} from "@angular/http";
 import { PersonManagementComponent } from './person/person-management/person-management.component';
 import {PersonServiceService} from "./person/person-service.service";
 import { PersonFormComponent } from './person/person-form/person-form.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import {AccountService} from "./account.service";
 
 const appRoute: Routes = [
-  {path:'stock',component:StockManageComponent},
-  {path:'stock/:id',component:StockFormComponent},
-  {path:'person',component:PersonManagementComponent},
-  {path:'person/:id',component:PersonFormComponent},
-  {path:'dashboard',component:DashboardComponent},
-  {path:'',redirectTo:'dashboard',pathMatch:'full'}
+  {path:'login',component:LoginComponent},
+  {path:'register',component:RegisterComponent},
+  {path:'admin',component:ContentComponent,children:[
+    {path:'stock',component:StockManageComponent},
+    {path:'stock/:id',component:StockFormComponent},
+    {path:'person',component:PersonManagementComponent},
+    {path:'person/:id',component:PersonFormComponent},
+    {path:'dashboard',component:DashboardComponent},
+    {path:'', redirectTo:'dashboard',pathMatch:'full'}
+  ]},
+  {path:'',redirectTo:'login',pathMatch:'full'},
+  {path:'**',component:PageNotFoundComponent}
 ]
 
 @NgModule({
@@ -44,7 +54,10 @@ const appRoute: Routes = [
     StockFormComponent,
     StockFilterPipe,
     PersonManagementComponent,
-    PersonFormComponent
+    PersonFormComponent,
+    PageNotFoundComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +66,7 @@ const appRoute: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoute)
   ],
-  providers: [StockService, PersonServiceService],
+  providers: [StockService, PersonServiceService, AccountService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -64,7 +64,7 @@ export class StockFormComponent implements OnInit {
   }
 
   cancel(){
-      this.router.navigateByUrl("/stock");
+      this.router.navigateByUrl("/admin/stock");
   }
 
   save(){
@@ -78,7 +78,7 @@ export class StockFormComponent implements OnInit {
     this.formModel.value.categories = cate;
     this.formModel.value.rating = this.stock.rating;
     console.log(this.formModel.value);
-    this.router.navigateByUrl("/stock");
+    this.router.navigateByUrl("/admin/stock");
   }
 
 }

@@ -28,7 +28,7 @@ export class PersonFormComponent implements OnInit {
       phone:['',[Validators.required,Validators.pattern('1(3[0-9]|4[57]|5[0-35-9]|7[0135678]|8[0-9])\\d{8}')]],
       degree:[''],
       jobnumber:['',[Validators.pattern('[0-9]{8,8}')]]
-    })
+    });
 
     let personId = this.activatedRoute.snapshot.params.id;
     if(personId != 'create'){
@@ -62,11 +62,11 @@ export class PersonFormComponent implements OnInit {
     let id = this.activatedRoute.snapshot.params.id;
     if(id != 'create'){
       this.personService.updatePerson(id,obj).subscribe(res => {
-        this.router.navigateByUrl('/person');
+        this.router.navigateByUrl('/admin/person');
       });
     }else {
       this.personService.createPerson(obj).subscribe(res => {
-        this.router.navigateByUrl('/person');
+        this.router.navigateByUrl('/admin/person');
       });
     }
 
@@ -75,7 +75,7 @@ export class PersonFormComponent implements OnInit {
 
 
   cancel(){
-    this.router.navigateByUrl('/person');
+    this.router.navigateByUrl('/admin/person');
   }
 
 }

@@ -44,6 +44,7 @@ var stocks = [
 ];
 var mongoose = require('mongoose');
 var Person = require('../model/person');
+var User = require('../model/user');
 mongoose.connect('mongodb://localhost/db1');
 mongoose.connection.on('connected', function () {
     console.log('database connect successfully');
@@ -113,4 +114,15 @@ app.delete('/api/person/:id', function (req, res) {
         }
         ;
     });
+});
+//account setting
+app.post('/api/createAccount', function (req, res) {
+    if (req.body != null) {
+        User.create({
+            username: req.body.username,
+            email: req.body.email,
+            password: req.body.password
+        });
+        res.send('create account successfully');
+    }
 });

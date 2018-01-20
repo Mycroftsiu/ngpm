@@ -1,6 +1,6 @@
 <div class="box">
   <div class="box-header with-border">
-    <a class="btn btn-success btn-sm" routerLink="/stock/0">
+    <a class="btn btn-success btn-sm" routerLink="/admin/stock/0">
       <span class="glyphicon glyphicon-plus"></span>Add
     </a>
     <div class="box-tools">
@@ -29,7 +29,7 @@
         <td>{{stock.price}}</td>
         <td><app-stars [rating]="stock.rating"></app-stars></td>
         <td>
-          <a class="btn btn-warning btn-xs" routerLink="/stock/{{stock.id}}"><span class="glyphicon glyphicon-edit"></span>Edit</a>
+          <a class="btn btn-warning btn-xs" routerLink="/admin/stock/{{stock.id}}"><span class="glyphicon glyphicon-edit"></span>Edit</a>
           <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>Delete</a>
         </td>
       </tr>

@@ -12,6 +12,10 @@ export class RegisterComponent implements OnInit {
 
   public registerForm: FormGroup;
 
+  public isOccupied: boolean;
+
+  public successStatus: boolean;
+
   constructor(private accountService: AccountService,private router: Router) { }
 
   ngOnInit() {
@@ -35,9 +39,16 @@ export class RegisterComponent implements OnInit {
       password: this.registerForm.value.password
     };
     this.accountService.register(obj).subscribe(res => {
-      console.log(res);
-      this.router.navigateByUrl('/login');
+      if(res.json()=='this email has been registered before'){
+        this.isOccupied = true;
+      }else{
+        this.router.navigateByUrl('/login');
+      }
     });
+  }
+
+  close(){
+    this.isOccupied = false;
   }
 
 }

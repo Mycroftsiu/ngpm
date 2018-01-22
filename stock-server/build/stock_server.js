@@ -57,20 +57,26 @@ mongoose.connection.on('connected', function () {
 // ]);
 //get person list
 app.get('/api/person', function (req, res) {
-    Person.find({}, function (err, response) {
-        if (err)
+    Person.find({}, function (err, persons) {
+        if (err) {
             console.log(err);
-        else
-            res.json(response);
+            res.send(500);
+        }
+        else {
+            res.json(persons);
+        }
     });
 });
 //get single person on person form
 app.get('/api/person/:id', function (req, res) {
     Person.findById(req.params.id, function (err, response) {
-        if (err)
+        if (err) {
             console.log(err);
-        else
+            res.send(500);
+        }
+        else {
             res.json(response);
+        }
     });
 });
 //update single person
@@ -84,45 +90,71 @@ app.post('/api/person/:id', function (req, res) {
             degree: req.body.degree,
             jobNumber: req.body.jobNumber
         } }, function (err, rawResponse) {
-        if (err)
+        if (err) {
             console.log(err);
-        res.send(rawResponse);
+            res.send(500);
+        }
+        else {
+            res.send(rawResponse);
+        }
     });
 });
 // create a new person
 app.post('/api/personCreate', function (req, res) {
-    if (req.body != null) {
-        Person.create({
-            name: req.body.name,
-            gender: req.body.gender,
-            age: req.body.age,
-            phone: req.body.phone,
-            department: req.body.department,
-            degree: req.body.degree,
-            jobNumber: req.body.jobNumber
-        });
-        res.send({ success: 1 });
-    }
+    Person.create({
+        name: req.body.name,
+        gender: req.body.gender,
+        age: req.body.age,
+        phone: req.body.phone,
+        department: req.body.department,
+        degree: req.body.degree,
+        jobNumber: req.body.jobNumber
+    }, function (err, person) {
+        if (err) {
+            console.log(err);
+            res.send(500);
+        }
+        else {
+            res.send({ success: 1, person: person });
+        }
+    });
 });
 //delete single person
 app.delete('/api/person/:id', function (req, res) {
     Person.remove({ _id: req.params.id }, function (error, response) {
-        if (error)
+        if (error) {
             console.log(error);
+            res.send(500);
+        }
         else {
             res.send({ success: 1, response: response });
         }
-        ;
     });
 });
 //account setting
 app.post('/api/createAccount', function (req, res) {
-    if (req.body != null) {
-        User.create({
-            username: req.body.username,
-            email: req.body.email,
-            password: req.body.password
-        });
-        res.send('create account successfully');
-    }
+    User.findOne({ email: req.body.email }, function (err, doc) {
+        if (err) {
+            console.log(err);
+            res.send(500);
+        }
+        else if (doc) {
+            res.json('this email has been registered before');
+        }
+        else {
+            User.create({
+                username: req.body.username,
+                email: req.body.email,
+                password: req.body.password
+            }, function (err, user) {
+                if (err) {
+                    console.log(err);
+                    res.send(500);
+                }
+                else {
+                    res.send(user);
+                }
+            });
+        }
+    });
 });

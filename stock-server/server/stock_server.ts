@@ -74,17 +74,27 @@ mongoose.connection.on('connected',function () {
 
 //get person list
 app.get('/api/person', (req, res) => {
-  Person.find({}, (err, response) => {
-    if (err) console.log(err);
-    else res.json(response);
+  Person.find({}, (err, persons) => {
+    if (err){
+      console.log(err);
+      res.send(500);
+    }
+    else{
+      res.json(persons);
+    }
   });
 });
 
 //get single person on person form
 app.get('/api/person/:id',(req, res) => {
   Person.findById(req.params.id, (err, response) => {
-    if (err) console.log(err);
-    else res.json(response);
+    if (err) {
+      console.log(err);
+      res.send(500);
+    }
+    else {
+      res.json(response);
+    }
   });
 });
 
@@ -99,14 +109,17 @@ app.post('/api/person/:id', (req, res) => {
         degree: req.body.degree,
         jobNumber: req.body.jobNumber
     }}, (err, rawResponse) => {
-      if(err) console.log(err);
-      res.send(rawResponse);
-    })
+      if(err){
+        console.log(err);
+        res.send(500);
+      }else{
+        res.send(rawResponse);
+      }
+    });
 });
 
 // create a new person
 app.post('/api/personCreate', (req, res) => {
-  if(req.body != null){
     Person.create({
       name: req.body.name,
       gender: req.body.gender,
@@ -115,32 +128,55 @@ app.post('/api/personCreate', (req, res) => {
       department: req.body.department,
       degree: req.body.degree,
       jobNumber: req.body.jobNumber
+    }, (err, person) => {
+      if(err){
+        console.log(err);
+        res.send(500);
+      }else {
+        res.send({success: 1, person: person});
+      }
     });
-    res.send({success: 1});
-  }
 });
 
 //delete single person
 app.delete('/api/person/:id',(req, res) => {
     Person.remove({_id: req.params.id}, (error, response) => {
-    if(error) console.log(error);
+    if(error){
+      console.log(error);
+      res.send(500);
+    }
     else{
       res.send({success:1, response: response});
-    };
+    }
   });
 });
 
 
 //account setting
 app.post('/api/createAccount', (req, res) => {
-  if(req.body !=null){
-    User.create({
-      username: req.body.username,
-      email: req.body.email,
-      password: req.body.password
-    });
-    res.send('create account successfully');
-  }
+  User.findOne({email:req.body.email}, (err, doc) => {
+    if (err) {
+      console.log(err);
+      res.send(500);
+    } else if (doc) {
+      res.json('this email has been registered before');
+    } else {
+      User.create({
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password
+      }, (err, user) => {
+        if (err) {
+          console.log(err);
+          res.send(500);
+        } else {
+          res.send(user);
+        }
+      });
+    }
+  });
+
+
 });
 
 

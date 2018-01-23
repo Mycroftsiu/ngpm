@@ -132,11 +132,12 @@ app.delete('/api/person/:id', function (req, res) {
     });
 });
 //account setting
+//register an account
 app.post('/api/createAccount', function (req, res) {
     User.findOne({ email: req.body.email }, function (err, doc) {
         if (err) {
             console.log(err);
-            res.send(500);
+            res.sendStatus(500);
         }
         else if (doc) {
             res.json('this email has been registered before');
@@ -149,12 +150,32 @@ app.post('/api/createAccount', function (req, res) {
             }, function (err, user) {
                 if (err) {
                     console.log(err);
-                    res.send(500);
+                    res.sendStatus(500);
                 }
                 else {
                     res.send(user);
                 }
             });
+        }
+    });
+});
+//login
+app.post('/api/login', function (req, res) {
+    User.findOne({ email: req.body.email }, function (err, doc) {
+        if (err) {
+            console.log(err);
+            res.sendStatus(500);
+        }
+        else if (!doc) {
+            res.json('email or password incorrect');
+        }
+        else {
+            if (req.body.password != doc.password) {
+                res.json('email or password incorrect');
+            }
+            else {
+                res.json('success');
+            }
         }
     });
 });

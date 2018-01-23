@@ -14,8 +14,6 @@ export class RegisterComponent implements OnInit {
 
   public isOccupied: boolean;
 
-  public successStatus: boolean;
-
   constructor(private accountService: AccountService,private router: Router) { }
 
   ngOnInit() {

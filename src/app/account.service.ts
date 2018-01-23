@@ -10,4 +10,8 @@ export class AccountService {
     return this.http.post('/api/createAccount',body);
   }
 
+  logIn(body){
+    return this.http.post('/api/login',body);
+  }
+
 }

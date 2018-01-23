@@ -10,7 +10,6 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { ContentComponent } from './content/content.component';
 import { StockManageComponent } from './stock/stock-manage/stock-manage.component';
 import { StarsComponent } from './stars/stars.component';
-import { Routes, RouterModule } from "@angular/router";
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { StockFormComponent } from './stock/stock-form/stock-form.component';
 import { StockService } from "./stock/stock.service";
@@ -24,21 +23,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import {AccountService} from "./account.service";
+import {AppRoutingModule} from "./app-routing.module";
 
-const appRoute: Routes = [
-  {path:'login',component:LoginComponent},
-  {path:'register',component:RegisterComponent},
-  {path:'admin',component:ContentComponent,children:[
-    {path:'stock',component:StockManageComponent},
-    {path:'stock/:id',component:StockFormComponent},
-    {path:'person',component:PersonManagementComponent},
-    {path:'person/:id',component:PersonFormComponent},
-    {path:'dashboard',component:DashboardComponent},
-    {path:'', redirectTo:'dashboard',pathMatch:'full'}
-  ]},
-  {path:'',redirectTo:'login',pathMatch:'full'},
-  {path:'**',component:PageNotFoundComponent}
-]
+
 
 @NgModule({
   declarations: [
@@ -64,7 +51,7 @@ const appRoute: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoute)
+    AppRoutingModule
   ],
   providers: [StockService, PersonServiceService, AccountService],
   bootstrap: [AppComponent]

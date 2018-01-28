@@ -14,4 +14,12 @@ export class AccountService {
     return this.http.post('/api/login',body);
   }
 
+  isloggedIn(){
+    return this.http.get('/api/checkLogin');
+  }
+
+  signOut(){
+    return this.http.get('/api/logOut');
+  }
+
 }

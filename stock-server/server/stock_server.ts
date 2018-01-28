@@ -8,9 +8,17 @@ const app = express();
 
 
 var bodyParser = require('body-parser');
+var session = require('express-session');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(session({
+  secret :  'secret',
+  resave : true,
+  saveUninitialized: false,
+  cookie : {
+    maxAge : 1000 * 60 * 3,
+  },
+}));
 
 
 app.listen(8000,() => {
@@ -193,13 +201,25 @@ app.post('/api/login', (req, res) => {
       if(req.body.password != doc.password){
         res.json('email or password incorrect');
       }else{
+        req.session.email = req.body.email;
         res.json('success');
       }
     }
   });
 });
 
+app.get('/api/checkLogin', (req, res) => {
+  if(req.session.email){
+    res.json(true);
+  }else{
+    res.json(false);
+  }
+});
 
+app.get('/api/logOut', (req, res) => {
+  req.session.email = null;
+  res.sendStatus(200);
+});
 
 
 

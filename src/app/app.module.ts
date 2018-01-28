@@ -24,6 +24,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import {AccountService} from "./account.service";
 import {AppRoutingModule} from "./app-routing.module";
+import {AuthGuard} from "./guard/auth.guard";
 
 
 
@@ -53,7 +54,7 @@ import {AppRoutingModule} from "./app-routing.module";
     HttpModule,
     AppRoutingModule
   ],
-  providers: [StockService, PersonServiceService, AccountService],
+  providers: [StockService, PersonServiceService, AccountService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

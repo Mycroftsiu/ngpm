@@ -9,6 +9,7 @@ import {PersonManagementComponent} from "./person/person-management/person-manag
 import {PersonFormComponent} from "./person/person-form/person-form.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {NgModule} from "@angular/core";
+import {AuthGuard} from "./guard/auth.guard";
 /**
  * Created by mycroft on 2018/1/22.
  */
@@ -18,7 +19,7 @@ import {NgModule} from "@angular/core";
 const appRoutes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
-  {path:'admin',component:ContentComponent,children:[
+  {path:'admin',component:ContentComponent,canActivate:[AuthGuard],children:[
     {path:'stock',component:StockManageComponent},
     {path:'stock/:id',component:StockFormComponent},
     {path:'person',component:PersonManagementComponent},

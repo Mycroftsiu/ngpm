@@ -9,6 +9,7 @@ const app = express();
 
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var crypto = require('crypto');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
@@ -170,10 +171,11 @@ app.post('/api/createAccount', (req, res) => {
     } else if (doc) {
       res.json('this email has been registered before');
     } else {
+      var md5 = crypto.createHash('md5');
       User.create({
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password
+        password: md5.update(req.body.password).digest('hex')
       }, (err, user) => {
         if (err) {
           console.log(err);
@@ -198,7 +200,8 @@ app.post('/api/login', (req, res) => {
     }else if(!doc){
       res.json('email or password incorrect');
     }else{
-      if(req.body.password != doc.password){
+      var md5 = crypto.createHash('md5');
+      if(md5.update(req.body.password).digest('hex') != doc.password){
         res.json('email or password incorrect');
       }else{
         req.session.email = req.body.email;

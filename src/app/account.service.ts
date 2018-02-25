@@ -22,4 +22,8 @@ export class AccountService {
     return this.http.get('/api/logOut');
   }
 
+  getUser(){
+    return this.http.get('/api/user');
+  }
+
 }

@@ -204,3 +204,14 @@ app.get('/api/logOut', function (req, res) {
     req.session.email = null;
     res.sendStatus(200);
 });
+app.get('/api/user', function (req, res) {
+    var email = req.session.email;
+    User.findOne({ email: email }, function (err, doc) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.json(doc);
+        }
+    });
+});

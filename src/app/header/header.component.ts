@@ -8,9 +8,14 @@ import {AccountService} from "../account.service";
 })
 export class HeaderComponent implements OnInit {
 
+  public username: string;
+
   constructor(public accountService: AccountService) { }
 
   ngOnInit() {
+    this.accountService.getUser().subscribe(res => {
+      this.username = res.json().username;
+    });
   }
 
   signOut(){

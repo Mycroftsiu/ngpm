@@ -224,6 +224,16 @@ app.get('/api/logOut', (req, res) => {
   res.sendStatus(200);
 });
 
+app.get('/api/user', (req, res) => {
+  var email = req.session.email;
+  User.findOne({email: email}, (err, doc){
+    if(err){
+      console.log(err);
+    }else{
+      res.json(doc);
+    }
+  });
+});
 
 
 

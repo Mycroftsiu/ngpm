@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl} from "@angular/forms";
+import {AccountService} from "../account.service";
 
 @Component({
   selector: 'app-menu',
@@ -14,27 +15,31 @@ export class MenuComponent implements OnInit {
 
   private keyword: string;
 
-  constructor() {
+  private username: string;
+
+  constructor(public accountService: AccountService) {
   }
 
   ngOnInit() {
     this.menus = [
-      new Menu(1,"Dashboard","dashboard"),
-      new Menu(2,"Stock Management","stock"),
-      new Menu(3,"Person Management","person")
+      new Menu("Dashboard","dashboard"),
+      // new Menu("Stock Management","stock"),
+      new Menu("Person Management","person")
     ];
     this.nameFilter.valueChanges
       .debounceTime(500)
       .subscribe(val => {
         this.keyword = val.toLowerCase();
       });
+    this.accountService.getUser().subscribe(res => {
+      this.username = res.json().username;
+    });
 
   }
 }
 
 export class Menu {
   constructor(
-    private id: number,
     private name: string,
     private link: string
   ){

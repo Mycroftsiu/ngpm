@@ -15,24 +15,33 @@ export class MenuComponent implements OnInit {
 
   private keyword: string;
 
-  private username: string;
+  private user;
 
   constructor(public accountService: AccountService) {
   }
 
   ngOnInit() {
-    this.menus = [
-      new Menu("Dashboard","dashboard"),
-      // new Menu("Stock Management","stock"),
-      new Menu("Person Management","person")
-    ];
     this.nameFilter.valueChanges
       .debounceTime(500)
       .subscribe(val => {
         this.keyword = val.toLowerCase();
       });
     this.accountService.getUser().subscribe(res => {
-      this.username = res.json().username;
+      this.user = res.json();
+      if(this.user.position == 'Admin'){
+        this.menus = [
+          new Menu("Dashboard","dashboard"),
+          // new Menu("Stock Management","stock"),
+          new Menu("Person Management","person")
+        ]
+      } else if(this.user.position == 'Staff') {
+        this.menus = [
+          new Menu("Dashboard","dashboard"),
+          // new Menu("Stock Management","stock"),
+          // new Menu("Person Management","person")
+        ]
+      }
+
     });
 
   }

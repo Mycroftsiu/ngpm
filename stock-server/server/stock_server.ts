@@ -175,7 +175,8 @@ app.post('/api/createAccount', (req, res) => {
       User.create({
         username: req.body.username,
         email: req.body.email,
-        password: md5.update(req.body.password).digest('hex')
+        password: md5.update(req.body.password).digest('hex'),
+        position: req.body.position
       }, (err, user) => {
         if (err) {
           console.log(err);

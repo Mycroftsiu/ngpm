@@ -22,7 +22,8 @@ export class RegisterComponent implements OnInit {
       name:['',[Validators.required,Validators.pattern('^[a-zA-Z0-9_\u4e00-\u9fa5]{3,16}$')]],
       email:['',[Validators.required,Validators.pattern('^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$')]],
       password:['',[Validators.required,Validators.pattern('^[0-9A-Za-z_]{6,14}$')]],
-      passwordConfirm:['',[Validators.required,this.passwordConfirmValidator]]
+      passwordConfirm:['',[Validators.required,this.passwordConfirmValidator]],
+      position:['',[Validators.required]]
     });
   }
 
@@ -34,7 +35,8 @@ export class RegisterComponent implements OnInit {
     let obj = {
       username: this.registerForm.value.name,
       email: this.registerForm.value.email,
-      password: this.registerForm.value.password
+      password: this.registerForm.value.password,
+      position: this.registerForm.value.position
     };
     this.accountService.register(obj).subscribe(res => {
       if(res.json()=='this email has been registered before'){

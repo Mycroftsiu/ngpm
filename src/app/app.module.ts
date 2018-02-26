@@ -25,6 +25,7 @@ import { RegisterComponent } from './register/register.component';
 import {AccountService} from "./account.service";
 import {AppRoutingModule} from "./app-routing.module";
 import {AuthGuard} from "./guard/auth.guard";
+import { FeedbackComponent } from './feedback/feedback.component';
 
 
 
@@ -45,7 +46,8 @@ import {AuthGuard} from "./guard/auth.guard";
     PersonFormComponent,
     PageNotFoundComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    FeedbackComponent
   ],
   imports: [
     BrowserModule,

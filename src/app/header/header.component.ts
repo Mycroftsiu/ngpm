@@ -8,13 +8,13 @@ import {AccountService} from "../account.service";
 })
 export class HeaderComponent implements OnInit {
 
-  public username: string;
+  public user;
 
   constructor(public accountService: AccountService) { }
 
   ngOnInit() {
     this.accountService.getUser().subscribe(res => {
-      this.username = res.json().username;
+      this.user = res.json();
     });
   }
 

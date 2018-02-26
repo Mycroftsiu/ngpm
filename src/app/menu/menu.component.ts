@@ -31,7 +31,8 @@ export class MenuComponent implements OnInit {
       if(this.user.position == 'Admin'){
         this.menus = [
           new Menu("Dashboard","dashboard"),
-          new Menu("Person Management","person")
+          new Menu("Person Management","person"),
+          new Menu("Feedback Aggregation","fbAggregation")
         ]
       } else if(this.user.position == 'Staff') {
         this.menus = [

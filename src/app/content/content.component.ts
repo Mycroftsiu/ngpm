@@ -30,6 +30,9 @@ export class ContentComponent implements OnInit {
         }else if(event.urlAfterRedirects ==  '/admin/feedback') {
           this.title = this.rightInfo = 'Feedback';
           this.desc = 'Democratic and Peaceful';
+        }else if(event.urlAfterRedirects ==  '/admin/fbAggregation') {
+          this.title = this.rightInfo = 'Feedback Aggregation';
+          this.desc = 'Democratic and Peaceful';
         }
       });
   }

@@ -26,6 +26,7 @@ import {AccountService} from "./account.service";
 import {AppRoutingModule} from "./app-routing.module";
 import {AuthGuard} from "./guard/auth.guard";
 import { FeedbackComponent } from './feedback/feedback.component';
+import { FeedbackAggregationComponent } from './feedback-aggregation/feedback-aggregation.component';
 
 
 
@@ -47,7 +48,8 @@ import { FeedbackComponent } from './feedback/feedback.component';
     PageNotFoundComponent,
     LoginComponent,
     RegisterComponent,
-    FeedbackComponent
+    FeedbackComponent,
+    FeedbackAggregationComponent
   ],
   imports: [
     BrowserModule,

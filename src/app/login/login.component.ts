@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
       let obj = {
         email: this.loginForm.value.email,
         password: this.loginForm.value.password
-      }
+      };
       this.accountService.logIn(obj).subscribe(res => {
         if(res.json()=='email or password incorrect'){
           this.isError = true;

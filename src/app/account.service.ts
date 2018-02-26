@@ -26,4 +26,12 @@ export class AccountService {
     return this.http.get('/api/user');
   }
 
+  submitFeedback(body){
+    return this.http.post('/api/submitFeedback',body);
+  }
+
+  getFeedbacks(body){
+    return this.http.post('/api/getFeedback',body);
+  }
+
 }

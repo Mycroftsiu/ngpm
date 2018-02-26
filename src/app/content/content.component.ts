@@ -20,13 +20,16 @@ export class ContentComponent implements OnInit {
       .subscribe((event:NavigationEnd) => {
         if(event.urlAfterRedirects ==  '/admin/dashboard'){
           this.title = this.rightInfo = 'Dashboard';
-          this.desc = 'Simple and neat';
+          this.desc = 'Simple and Neat';
         }else if(event.url.startsWith('/admin/stock')) {
           this.title = this.rightInfo = 'Stock Management';
-          this.desc = 'Easy and swift';
+          this.desc = 'Easy and Swift';
         }else if(event.url.startsWith('/admin/person')) {
           this.title = this.rightInfo = 'Person Management';
-          this.desc = 'Comfortable and pretty';
+          this.desc = 'Comfortable and Pretty';
+        }else if(event.urlAfterRedirects ==  '/admin/feedback') {
+          this.title = this.rightInfo = 'Feedback';
+          this.desc = 'Democratic and Peaceful';
         }
       });
   }

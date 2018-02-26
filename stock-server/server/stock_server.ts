@@ -17,7 +17,7 @@ app.use(session({
   resave : true,
   saveUninitialized: false,
   cookie : {
-    maxAge : 1000 * 60 * 3,
+    maxAge : 1000 * 60 * 60,
   },
 }));
 
@@ -67,6 +67,7 @@ const stocks: Stock[] =  [
 var mongoose = require('mongoose');
 var Person = require('../model/person');
 var User = require('../model/user');
+var Feedback = require('../model/feedback');
 
 mongoose.connect('mongodb://localhost/db1');
 mongoose.connection.on('connected',function () {
@@ -238,8 +239,42 @@ app.get('/api/user', (req, res) => {
 
 
 
+app.post('/api/submitFeedback',(req, res) => {
+  Feedback.create({
+    user: req.body.user,
+    content: req.body.feedback
+  }, (err, feedback) => {
+    if(err){
+      console.log(err);
+      res.sendStatus(500);
+    }else {
+      res.send(feedback);
+    }
+  });
+});
 
+app.post('/api/getFeedback', (req, res) => {
+  if(req.body.position == "Admin"){
+    Feedback.find({},(err, feedback) => {
+      if(err){
+        console.log(err);
+        res.sendStatus(500);
+      }else{
+        res.json(feedback);
+      }
+    });
+  }else if(req.body.position == "Staff"){
+    Feedback.find({'user.email' : req.body.email}, (err, feedback) => {
+      if(err){
+        console.log(err);
+        res.sendStatus(500);
+      }else {
+        res.json(feedback);
+      }
+    });
+  }
 
+});
 
 
 

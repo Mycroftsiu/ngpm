@@ -8,7 +8,7 @@ import {AccountService} from "../account.service";
 })
 export class HeaderComponent implements OnInit {
 
-  public user;
+  public user={};
 
   constructor(public accountService: AccountService) { }
 

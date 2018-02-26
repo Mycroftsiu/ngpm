@@ -1,3 +1,55 @@
-<p>
-  feedback works!
-</p>
+<div class="box box-warning">
+  <div class="box-header with-border">
+    <h3 class="box-title" style="padding-top: 5px">&nbsp;&nbsp;Something to say...</h3>
+    <div class="pull-right">
+      <a (click)="submit()" class="btn bg-purple btn-flat">Submit</a>
+    </div>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body">
+    <form [formGroup]="feedbackForm">
+
+      <!-- textarea -->
+      <div class="form-group has-feedback" [class.has-error]="feedbackForm.get('feedback').invalid && feedbackForm.get('feedback').touched">
+        <textarea formControlName="feedback" class="form-control" rows="3" placeholder="请输入 ...(虽然言简意赅没错，但我们希望得到你更详细的意见，感谢你的用心，字数最低要求40)"></textarea>
+      </div>
+
+
+    </form>
+  </div>
+  <!-- /.box-body -->
+
+  <div class="box-body">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          <div class="box-header">
+            <h3 class="box-title">Submitted</h3>
+
+
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body table-responsive no-padding">
+            <table class="table table-hover">
+              <tbody><tr>
+                <th>#</th>
+                <th>Content</th>
+                <th>Comment</th>
+              </tr>
+              <tr *ngFor="let feedback of feedbacks; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{feedback.content}}</td>
+                <td>{{feedback.comment}}</td>
+              </tr>
+              </tbody></table>
+          </div>
+          <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+      </div>
+    </div>
+  </div>
+
+
+
+</div>

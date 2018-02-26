@@ -15,7 +15,7 @@ app.use(session({
     resave: true,
     saveUninitialized: false,
     cookie: {
-        maxAge: 1000 * 60 * 3,
+        maxAge: 1000 * 60 * 60,
     },
 }));
 app.listen(8000, function () {
@@ -55,6 +55,7 @@ var stocks = [
 var mongoose = require('mongoose');
 var Person = require('../model/person');
 var User = require('../model/user');
+var Feedback = require('../model/feedback');
 mongoose.connect('mongodb://localhost/db1');
 mongoose.connection.on('connected', function () {
     console.log('database connect successfully');
@@ -215,4 +216,42 @@ app.get('/api/user', function (req, res) {
             res.json(doc);
         }
     });
+});
+app.post('/api/submitFeedback', function (req, res) {
+    Feedback.create({
+        user: req.body.user,
+        content: req.body.feedback
+    }, function (err, feedback) {
+        if (err) {
+            console.log(err);
+            res.sendStatus(500);
+        }
+        else {
+            res.send(feedback);
+        }
+    });
+});
+app.post('/api/getFeedback', function (req, res) {
+    if (req.body.position == "Admin") {
+        Feedback.find({}, function (err, feedback) {
+            if (err) {
+                console.log(err);
+                res.sendStatus(500);
+            }
+            else {
+                res.json(feedback);
+            }
+        });
+    }
+    else if (req.body.position == "Staff") {
+        Feedback.find({ 'user.email': req.body.email }, function (err, feedback) {
+            if (err) {
+                console.log(err);
+                res.sendStatus(500);
+            }
+            else {
+                res.json(feedback);
+            }
+        });
+    }
 });

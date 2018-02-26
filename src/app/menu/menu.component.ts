@@ -15,7 +15,7 @@ export class MenuComponent implements OnInit {
 
   private keyword: string;
 
-  private user;
+  private user: any = {};
 
   constructor(public accountService: AccountService) {
   }
@@ -31,14 +31,12 @@ export class MenuComponent implements OnInit {
       if(this.user.position == 'Admin'){
         this.menus = [
           new Menu("Dashboard","dashboard"),
-          // new Menu("Stock Management","stock"),
           new Menu("Person Management","person")
         ]
       } else if(this.user.position == 'Staff') {
         this.menus = [
           new Menu("Dashboard","dashboard"),
-          // new Menu("Stock Management","stock"),
-          // new Menu("Person Management","person")
+          new Menu("Feedback",'feedback')
         ]
       }
 

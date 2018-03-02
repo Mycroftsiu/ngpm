@@ -255,3 +255,29 @@ app.post('/api/getFeedback', function (req, res) {
         });
     }
 });
+app.post('/api/changePwd', function (req, res) {
+    User.findOne({ email: req.body.email }, function (err, doc) {
+        if (err) {
+            console.log(err);
+            res.sendStatus(500);
+        }
+        else {
+            if (crypto.createHash('md5').update(req.body.oldPassword).digest('hex') == doc.password) {
+                User.update({ email: req.body.email }, { $set: {
+                        password: crypto.createHash('md5').update(req.body.password).digest('hex')
+                    } }, function (err, rawResponse) {
+                    if (err) {
+                        console.log(err);
+                        res.sendStatus(500);
+                    }
+                    else {
+                        res.send(rawResponse);
+                    }
+                });
+            }
+            else {
+                res.send('old password incorrect');
+            }
+        }
+    });
+});

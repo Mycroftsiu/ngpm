@@ -277,7 +277,29 @@ app.post('/api/getFeedback', (req, res) => {
 });
 
 
-
+app.post('/api/changePwd', (req, res) => {
+  User.findOne({email: req.body.email}, (err, doc) => {
+    if(err){
+      console.log(err);
+      res.sendStatus(500);
+    }else {
+      if(crypto.createHash('md5').update(req.body.oldPassword).digest('hex') == doc.password){
+        User.update({email: req.body.email},{ $set:{
+          password: crypto.createHash('md5').update(req.body.password).digest('hex')
+        }}, (err, rawResponse) => {
+          if(err){
+            console.log(err);
+            res.sendStatus(500);
+          }else {
+            res.send(rawResponse);
+          }
+        });
+      }else {
+        res.send('old password incorrect');
+      }
+    }
+  });
+});
 
 
 

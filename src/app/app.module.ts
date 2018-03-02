@@ -27,6 +27,7 @@ import {AppRoutingModule} from "./app-routing.module";
 import {AuthGuard} from "./guard/auth.guard";
 import { FeedbackComponent } from './feedback/feedback.component';
 import { FeedbackAggregationComponent } from './feedback-aggregation/feedback-aggregation.component';
+import { PasswordChangeComponent } from './password-change/password-change.component';
 
 
 
@@ -49,7 +50,8 @@ import { FeedbackAggregationComponent } from './feedback-aggregation/feedback-ag
     LoginComponent,
     RegisterComponent,
     FeedbackComponent,
-    FeedbackAggregationComponent
+    FeedbackAggregationComponent,
+    PasswordChangeComponent
   ],
   imports: [
     BrowserModule,

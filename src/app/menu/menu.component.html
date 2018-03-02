@@ -31,7 +31,7 @@
     <ul class="sidebar-menu" data-widget="tree">
       <li class="header">Navigation</li>
       <!-- Optionally, you can add icons to the links -->
-      <li  *ngFor="let menu of menus | stockFilter:'name':keyword;"  routerLinkActive="active" ><a routerLink="/admin/{{menu.link}}"><i class="fa fa-link"></i> <span>{{menu.name}}</span></a></li>
+      <li  *ngFor="let menu of menus | stockFilter:'name':keyword;let i = index;"  routerLinkActive="active" ><a routerLink="/admin/{{menu.link}}"><i [class]="icons[i]"></i> <span>{{menu.name}}</span></a></li>
     </ul>
     <!-- /.sidebar-menu -->
   </section>

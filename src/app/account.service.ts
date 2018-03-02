@@ -14,6 +14,10 @@ export class AccountService {
     return this.http.post('/api/login',body);
   }
 
+  changePwd(body){
+    return this.http.post('/api/changePwd',body);
+  }
+
   isloggedIn(){
     return this.http.get('/api/checkLogin');
   }

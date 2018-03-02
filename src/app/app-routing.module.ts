@@ -12,6 +12,7 @@ import {NgModule} from "@angular/core";
 import {AuthGuard} from "./guard/auth.guard";
 import {FeedbackComponent} from "./feedback/feedback.component";
 import {FeedbackAggregationComponent} from "./feedback-aggregation/feedback-aggregation.component";
+import {PasswordChangeComponent} from "./password-change/password-change.component";
 /**
  * Created by mycroft on 2018/1/22.
  */
@@ -28,6 +29,7 @@ const appRoutes: Routes = [
     {path:'person/:id',component:PersonFormComponent},
     {path:'feedback',component:FeedbackComponent},
     {path:'fbAggregation',component:FeedbackAggregationComponent},
+    {path:'infoUpdate',component:PasswordChangeComponent},
     {path:'dashboard',component:DashboardComponent},
     {path:'', redirectTo:'dashboard',pathMatch:'full'}
   ]},

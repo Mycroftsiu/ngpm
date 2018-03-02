@@ -17,6 +17,8 @@ export class MenuComponent implements OnInit {
 
   private user: any = {};
 
+  public icons;
+
   constructor(public accountService: AccountService) {
   }
 
@@ -32,16 +34,22 @@ export class MenuComponent implements OnInit {
         this.menus = [
           new Menu("Dashboard","dashboard"),
           new Menu("Person Management","person"),
-          new Menu("Feedback Aggregation","fbAggregation")
-        ]
+          new Menu("Feedback Aggregation","fbAggregation"),
+          new Menu("Information Revision","infoUpdate")
+        ];
+        this.icons = ['fa fa-dashboard','fa fa-users','fa fa-comments','fa fa-pencil'];
       } else if(this.user.position == 'Staff') {
         this.menus = [
           new Menu("Dashboard","dashboard"),
-          new Menu("Feedback",'feedback')
-        ]
+          new Menu("Feedback",'feedback'),
+          new Menu("Information Revision","infoUpdate")
+        ];
+        this.icons = ['fa fa-dashboard','fa fa-comment','fa fa-pencil'];
       }
 
     });
+
+
 
   }
 }

@@ -37,7 +37,7 @@
       </div><br>
 
       <div *ngIf="isError" id="msg-error" class="alert alert-warning alert-dismissable" style="">
-        <button type="button" (click)="close()" class="close" id="error-close" aria-hidden="true">×</button>
+        <button type="button" (click)="this.isError = false;" class="close" id="error-close" aria-hidden="true">×</button>
         <h4><i class="icon fa fa-warning"></i> Error!</h4>
         <p id="msg-error-p">email or password incorrect!</p>
       </div>

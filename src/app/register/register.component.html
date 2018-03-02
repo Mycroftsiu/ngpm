@@ -39,7 +39,7 @@
             <button type="submit" (click)="submit()" [disabled]="registerForm.invalid || registerForm.pristine" class="btn btn-primary btn-block btn-flat">Agree to terms of service and Register</button>
         </div>
         <div *ngIf="isOccupied" id="msg-error" class="alert alert-warning alert-dismissable" style="">
-          <button type="button" (click)="close()" class="close" id="error-close" aria-hidden="true">×</button>
+          <button type="button" (click)="this.isOccupied = false" class="close" id="error-close" aria-hidden="true">×</button>
           <h4><i class="icon fa fa-warning"></i> Error!</h4>
           <p id="msg-error-p">This email has been registered before</p>
         </div>

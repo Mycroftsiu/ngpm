@@ -291,11 +291,11 @@ app.post('/api/changePwd', (req, res) => {
             console.log(err);
             res.sendStatus(500);
           }else {
-            res.send(rawResponse);
+            res.json(rawResponse);
           }
         });
       }else {
-        res.send('old password incorrect');
+        res.json('old password incorrect');
       }
     }
   });

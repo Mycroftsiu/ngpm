@@ -47,8 +47,4 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  close(){
-    this.isOccupied = false;
-  }
-
 }

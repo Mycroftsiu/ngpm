@@ -11,6 +11,8 @@ export class PasswordChangeComponent implements OnInit {
 
   public infoForm: FormGroup;
 
+  public pwdInc: boolean;
+
   constructor(private accountService: AccountService) { }
 
   ngOnInit() {
@@ -34,10 +36,17 @@ export class PasswordChangeComponent implements OnInit {
           oldPassword: this.infoForm.value.oldPassword,
           password: this.infoForm.value.password
         };
-        this.accountService.changePwd(obj).subscribe(() => {
-          this.infoForm.reset();
+        this.accountService.changePwd(obj).subscribe(res => {
+          if(res.json() == 'old password incorrect'){
+            this.pwdInc = true;
+            this.infoForm.reset();
+          }else {
+            this.infoForm.reset();
+          }
         });
       });
+    }else {
+      this.pwdInc = true;
     }
   }
 

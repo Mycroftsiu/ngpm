@@ -43,8 +43,5 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  close(){
-    this.isError = false;
-  }
 
 }

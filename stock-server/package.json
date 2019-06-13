@@ -14,7 +14,7 @@
     "@types/ws": "^3.2.1",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
-    "mongoose": "^5.0.0-rc2",
+    "mongoose": "^5.5.15",
     "typescript": "^2.6.2",
     "ws": "^3.3.3"
   },
